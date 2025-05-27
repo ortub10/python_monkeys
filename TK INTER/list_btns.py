@@ -14,26 +14,32 @@ def update_ui():
 
 def on_btn_next():
     global index
-    if index < len(lettersList) - 1:
-        index += 1
-        update_ui()
-
+    index += 1
+    if index > len(lettersList) - 1:
+        index = 0
+    update_ui()
+    
 def on_btn_back():
     global index
-    if index > 0:
-        index -= 1
-        update_ui()
+    index -= 1
+    if index < 0:
+        index = len(lettersList) - 1
+    update_ui()
 
 root.geometry('600x400')
+root.grid_columnconfigure(0, weight=1)
+
 
 myText = Label(root, text="a", font=("", 24))
+frameButtons = Frame(root)
 
 btnBack = Button(root, text="back", command=on_btn_back)
 btnNext = Button(root, text="next", command=on_btn_next)
 
-myText.grid(row=0, column=0, columnspan=2, pady=8)
-btnBack.grid(row=1, column=0)
-btnNext.grid(row=1, column=1)
+myText.grid(row=0, column=0, pady=8)
+frameButtons.grid(row=1, column=0)
+btnBack.grid(row=0, column=0)
+btnNext.grid(row=0, column=1)
 
 
 root.mainloop()
